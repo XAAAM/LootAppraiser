@@ -14,6 +14,8 @@ local LibWindow = LibStub("LibWindow-1.1")
 
 local LA = LibStub("AceAddon-3.0"):GetAddon("LootAppraiser", true)
 
+local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+
 -- Lua APIs
 local tostring, pairs, ipairs, table, tonumber, select, time, math, floor, date, print, type, string, fastrandom, sort, error, unpack = 
       tostring, pairs, ipairs, table, tonumber, select, time, math, floor, date, print, type, string, fastrandom, sort, error, unpack
@@ -4155,44 +4157,44 @@ end
 --[[-------------------------------------------------------------------------------------
 -- add challenge invite and request for invite to bnet liste context menu
 ---------------------------------------------------------------------------------------]]
-function Challenge.UnitPopup_ShowMenu(dropdownMenu, which, unit, name, userData)
-	if(which == "BN_FRIEND" and dropdownMenu.which == "BN_FRIEND") then
+-- function Challenge.UnitPopup_ShowMenu(dropdownMenu, which, unit, name, userData)
+-- 	if(which == "BN_FRIEND" and dropdownMenu.which == "BN_FRIEND") then
 
-		--Challenge:D("Challenge.UnitPopup_ShowMenu: dropdownMenu=" .. tostring(dropdownMenu) .. ", which=" .. tostring(which) .. ", unit=" .. tostring(unit) .. ", name=" .. tostring(name) .. ", userData=" .. tostring(userData))
+-- 		--Challenge:D("Challenge.UnitPopup_ShowMenu: dropdownMenu=" .. tostring(dropdownMenu) .. ", which=" .. tostring(which) .. ", unit=" .. tostring(unit) .. ", name=" .. tostring(name) .. ", userData=" .. tostring(userData))
 
-		--local spacer = { disabled = 1, notCheckable = 1, colorCode = nil, checked = nil, hasArrow = nil }
-		--UIDropDownMenu_AddButton(spacer)
+-- 		--local spacer = { disabled = 1, notCheckable = 1, colorCode = nil, checked = nil, hasArrow = nil }
+-- 		--UIDropDownMenu_AddButton(spacer)
 
-		local headline = { text = "LootAppraiser Challenge", owner = which, notCheckable = 1, isTitle = 1 }
-		UIDropDownMenu_AddButton(headline)
+-- 		local headline = { text = "LootAppraiser Challenge", owner = which, notCheckable = 1, isTitle = 1 }
+-- 		UIDropDownMenu_AddButton(headline)
 
-		-- invite
-		local inviteDisabled = 1
-		if host.challengeID then
-			inviteDisabled = nil
-		end
+-- 		-- invite
+-- 		local inviteDisabled = 1
+-- 		if host.challengeID then
+-- 			inviteDisabled = nil
+-- 		end
 
-		local invite = { text = "Invite", owner = which, notCheckable = 1, disabled = inviteDisabled, func = Challenge.OnClick_BNetInv, arg1 = dropdownMenu }
-		UIDropDownMenu_AddButton(invite)
+-- 		local invite = { text = "Invite", owner = which, notCheckable = 1, disabled = inviteDisabled, func = Challenge.OnClick_BNetInv, arg1 = dropdownMenu }
+-- 		UIDropDownMenu_AddButton(invite)
 
-		-- request for invite
-		local request4InviteDisabled = nil
-		if host.challengeID or (participant.challenge and participant.challenge.challengeID) then
-			request4InviteDisabled = 1
-		end
+-- 		-- request for invite
+-- 		local request4InviteDisabled = nil
+-- 		if host.challengeID or (participant.challenge and participant.challenge.challengeID) then
+-- 			request4InviteDisabled = 1
+-- 		end
 
-		local reqeustForInvite = { 
-			text = "Send request for invite", 
-			owner = which, 
-			notCheckable = 1, 
-			disabled = request4InviteDisabled, 
-			func = Challenge.OnClick_BNetRequest4Inv, 
-			arg1 = dropdownMenu 
-		}
-		UIDropDownMenu_AddButton(reqeustForInvite)
-	end
-end
-hooksecurefunc("UnitPopup_ShowMenu", Challenge.UnitPopup_ShowMenu)
+-- 		local reqeustForInvite = { 
+-- 			text = "Send request for invite", 
+-- 			owner = which, 
+-- 			notCheckable = 1, 
+-- 			disabled = request4InviteDisabled, 
+-- 			func = Challenge.OnClick_BNetRequest4Inv, 
+-- 			arg1 = dropdownMenu 
+-- 		}
+-- 		UIDropDownMenu_AddButton(reqeustForInvite)
+-- 	end
+-- end
+-- hooksecurefunc("UnitPopup_ShowMenu", Challenge.UnitPopup_ShowMenu)
 
 
 --[[-------------------------------------------------------------------------------------
