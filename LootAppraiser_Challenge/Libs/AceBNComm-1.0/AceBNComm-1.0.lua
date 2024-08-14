@@ -10,7 +10,7 @@ if not AceBNComm then return end
 
 local CallbackHandler = LibStub:GetLibrary("CallbackHandler-1.0")
 local BNCTL = assert(BNChatThrottleLib, "AceBNComm-1.0 requires BNChatThrottleLib")
-print("BNCTL: " .. tostring(BNCTL))
+-- print("BNCTL: " .. tostring(BNCTL))
 
 -- Lua APIs
 local type, next, pairs, tostring = type, next, pairs, tostring

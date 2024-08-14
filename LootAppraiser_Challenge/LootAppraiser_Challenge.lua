@@ -4105,40 +4105,43 @@ end
 --[[-------------------------------------------------------------------------------------
 -- FIXED: add challenge invite and request for invite to bnet liste context menu
 ---------------------------------------------------------------------------------------]]
-local menuTargets = {
-    UnitPopupMenuFriend,
-    UnitPopupMenuPlayer,
-    UnitPopupMenuEnemyPlayer,
-    UnitPopupMenuParty,
-    UnitPopupMenuRaid,
-    UnitPopupMenuRaidPlayer,
-    UnitPopupMenuSelf,
-    UnitPopupMenuBnFriend,
-    UnitPopupMenuGuild,
-    UnitPopupMenuGuildOffline,
-    UnitPopupMenuChatRoster,
-    UnitPopupMenuTarget,
-    UnitPopupMenuArenaEnemy,
-    UnitPopupMenuFocus,
-    UnitPopupMenuWorldStateScore,
-    UnitPopupMenuCommunitiesGuildMember,
-    UnitPopupMenuCommunitiesWowMember,
-}
-local CustomMenuButtonMixin = CreateFromMixins(UnitPopupButtonBaseMixin)
-function CustomMenuButtonMixin:GetInteractDistance() return nil end;
-function CustomMenuButtonMixin:GetText() return "LAC Invite" end
-function CustomMenuButtonMixin:OnClick() return end
-
--- Add Menu to all Contexts
-for i,v in ipairs(menuTargets) do
-    local originButton = v.GetMenuButtons
-    if(originButton) then print(i) end
-    function v:GetMenuButtons()
-       local buttons = originButton(self)
-       table.insert(buttons, 1, CustomMenuButtonMixin)
-       return buttons
-    end
- end
+-- local menuList = {
+--     UnitPopupMenuFriend,
+--     UnitPopupMenuPlayer,
+--     UnitPopupMenuEnemyPlayer,
+--     UnitPopupMenuParty,
+--     UnitPopupMenuRaid,
+--     UnitPopupMenuRaidPlayer,
+--     UnitPopupMenuSelf,
+--     UnitPopupMenuBnFriend,
+--     UnitPopupMenuGuild,
+--     UnitPopupMenuGuildOffline,
+--     UnitPopupMenuChatRoster,
+--     UnitPopupMenuTarget,
+--     UnitPopupMenuArenaEnemy,
+--     UnitPopupMenuFocus,
+--     UnitPopupMenuWorldStateScore,
+--     UnitPopupMenuCommunitiesGuildMember,
+--     UnitPopupMenuCommunitiesWowMember,
+-- }
+ 
+ -- using mixin as blizzard recommended
+-- local CustomMenuButtonMixin = CreateFromMixins(UnitPopupButtonBaseMixin)
+-- function CustomMenuButtonMixin:GetText() return "LAC Invite" end
+-- function CustomMenuButtonMixin:OnClick()
+--     local invite = { text = "Invite", owner = which, notCheckable = 1, disabled = inviteDisabled, func = Challenge.OnClick_BNetInv, arg1 = dropdownMenu }
+--     Challenge.OnClick_BNetInv(invite)
+-- end
+ 
+ -- extends every item in popup list, added custom button
+-- for i,v in ipairs(menuList) do
+--     local originButton = v.GetEntries
+--     function v:GetEntries()
+--        local buttons = originButton(self)
+--        table.insert(buttons, 1, CustomMenuButtonMixin)
+--        return buttons
+--     end
+-- end
 
 --[[-------------------------------------------------------------------------------------
 -- add challenge invite and request for invite to bnet liste context menu
