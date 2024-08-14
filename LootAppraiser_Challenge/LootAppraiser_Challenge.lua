@@ -21,8 +21,8 @@ local tostring, pairs, ipairs, table, tonumber, select, time, math, floor, date,
       tostring, pairs, ipairs, table, tonumber, select, time, math, floor, date, print, type, string, fastrandom, sort, error, unpack
 
 -- wow APIs
-local GetUnitName, CreateFrame, UIParent, UIErrorsFrame, GameFontNormalLarge, GameFontNormal, GameTooltip, UIDropDownMenu_AddButton, GetItemInfo, GetMapInfo, GetBestMapForUnit, GetRealmName, GetChatWindowInfo, UnitIsAFK, IsShiftKeyDown, InterfaceOptionsFrame_OpenToCategory, UnitFactionGroup = 
-      GetUnitName, CreateFrame, UIParent, UIErrorsFrame, GameFontNormalLarge, GameFontNormal, GameTooltip, UIDropDownMenu_AddButton, GetItemInfo, C_Map.GetMapInfo, C_Map.GetBestMapForUnit, GetRealmName, GetChatWindowInfo, UnitIsAFK, IsShiftKeyDown, InterfaceOptionsFrame_OpenToCategory, UnitFactionGroup
+local GetUnitName, CreateFrame, UIParent, UIErrorsFrame, GameFontNormalLarge, GameFontNormal, GameTooltip, UIDropDownMenu_AddButton, GetItemInfo, GetMapInfo, GetBestMapForUnit, GetRealmName, GetChatWindowInfo, UnitIsAFK, IsShiftKeyDown, UnitFactionGroup = 
+      GetUnitName, CreateFrame, UIParent, UIErrorsFrame, GameFontNormalLarge, GameFontNormal, GameTooltip, UIDropDownMenu_AddButton, GetItemInfo, C_Map.GetMapInfo, C_Map.GetBestMapForUnit, GetRealmName, GetChatWindowInfo, UnitIsAFK, IsShiftKeyDown, UnitFactionGroup
 
 -- BNet API
 local BNGetFriendAccountInfo,           BNGetAccountInfoByID,           BNGetFriendGameAccountInfo,           BNGetGameAccountInfoByID,           BNGetFriendNumGameAccounts,           BNGetFriendIndex, BNGetNumFriends, BNGetInfo = 
@@ -694,9 +694,7 @@ function Challenge.Callback_OpenChallengeConfig()
 	local self = Challenge
 
 	self:D("Callback_OpenChallengeConfig")
-
-	InterfaceOptionsFrame_OpenToCategory(self.configFrame)
-	InterfaceOptionsFrame_OpenToCategory(self.configFrame)
+    Settings.OpenToCategory(self.configFrame)
 end
 
 
@@ -854,15 +852,18 @@ end
 -- chat cmd /lac : open challenge ui
 ---------------------------------------------------------------------------------------]]
 function Challenge:chatCmdChallengeUI()
+    print('lac test')
 	self:D("Challenge:chatCmdChallengeUI")
 
 	participant.challenge = participant.challenge or {}
 
 	-- no challenge is running -> no challenge ui
 	if not host.start and not participant.challenge.start then return end
+    print('lac running')
 
 	if self.CHALLENGE_UI then
 		self.CHALLENGE_UI:Show()
+        print('lac show ui?')
 	else
 		self:prepareChallengeUI()
 	end
@@ -4153,6 +4154,26 @@ function Challenge:isDebugOutputEnabled()
 	--return true
 end
 
+--[[-------------------------------------------------------------------------------------
+-- FIXED: add challenge invite and request for invite to bnet liste context menu
+---------------------------------------------------------------------------------------]]
+local menuTargets = {
+    UnitPopupMenuBnFriend
+}
+local CustomMenuButtonMixin = CreateFromMixins(UnitPopupButtonBaseMixin)
+function CustomMenuButtonMixin:GetInteractDistance() return nil end;
+function CustomMenuButtonMixin:GetText() return "LAC Invite" end
+function CustomMenuButtonMixin:OnClick() end
+
+-- Add Menu to all Contexts
+for i,v in ipairs(menuTargets) do
+    local originButton = v.GetMenuButtons
+    function v:GetMenuButtons()
+       local buttons = originButton(self)
+       table.insert(buttons, 1, CustomMenuButtonMixin)
+       return buttons
+    end
+ end
 
 --[[-------------------------------------------------------------------------------------
 -- add challenge invite and request for invite to bnet liste context menu
