@@ -3369,36 +3369,6 @@ function Challenge:refreshChallengeUITimer()
 	self.CHALLENGE_TIMER:SetText("|cFFFFFFCC" .. date("!%X", delta) .. "|r")
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 --[[-------------------------------------------------------------------------------------
 -- prepare options table for challenge configuration
 ---------------------------------------------------------------------------------------]]
