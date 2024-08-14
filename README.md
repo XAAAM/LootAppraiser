@@ -6,7 +6,7 @@
 
 # Attribution
 LootAppraiser was created by [ProfitzTV](https://www.curseforge.com/members/profitztv) on Curseforge  
-Original AddOn can be found over at Curseforge: https://www.curseforge.com/wow/addons/lootappraiser  
+Original AddOn can be found over at [Curseforge](https://www.curseforge.com/wow/addons/lootappraiser)  
   
 LootAppraiser_Challenge was created by [Testerle](https://www.curseforge.com/members/testerle) on Curseforge  
-Original AddOn can be found over at Curseforge: https://www.curseforge.com/wow/addons/lootappraiser_challenge
+Original AddOn can be found over at [Curseforge](https://www.curseforge.com/wow/addons/lootappraiser_challenge)
