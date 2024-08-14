@@ -1,0 +1,45 @@
+## Interface: 100100
+## Title: LootAppraiserChallenge
+## Notes: Challenge Modul of LootAppraiser
+## Author: Testerle
+## Version: 2020.v1.3.27
+## RequiredDeps: LootAppraiser
+## SavedVariables: LootAppraiserChallengeDB
+## X-Embeds: Ace3, LibDataBroker-1.1, LibDBIcon-1.0, LibExtraTip, LibParse, LibCompress, LibGraph-2.0
+
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\AceAddon-3.0\AceAddon-3.0.xml
+Libs\AceConsole-3.0\AceConsole-3.0.xml
+#Libs\AceEvent-3.0\AceEvent-3.0.xml
+#Libs\AceHook-3.0\AceHook-3.0.xml
+Libs\LibSink-2.0\LibSink-2.0.lua
+Libs\LibToast-1.0\LibToast-1.0.lua
+Libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
+Libs\AceGUI-3.0\AceGUI-3.0.xml
+Libs\AceGUI-3.0-SharedMediaWidgets\widget.xml 
+Libs\AceConfig-3.0\AceConfig-3.0.xml
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
+Libs\AceDB-3.0\AceDB-3.0.xml
+Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
+
+#Libs\AceComm-3.0\AceComm-3.0.xml
+Libs\AceBNComm-1.0\AceBNComm-1.0.xml
+Libs\AceSerializer-3.0\AceSerializer-3.0.xml
+
+#Libs\AceLocale-3.0\AceLocale-3.0.xml
+Libs\LibParse\load.xml
+Libs\LibCompress\lib.xml
+#Libs\LibGraph-2.0\LibGraph-2.0.lua
+#Libs\AccurateTime\AccurateTime.lua
+#Libs\LibChatAnims\LibChatAnims.xml
+
+Libs\LibWindow-1.1\LibWindow-1.1.lua
+
+widget\LootAppraiserGUIContainer-LiteWindow.lua
+widget\LootAppraiserGUIWidget-InteractiveLabel.lua
+widget\LootAppraiserGUIWidget-Label.lua
+widget\LootAppraiserGUIContainer-Window.lua
+
+LootAppraiser_Challenge.lua
