@@ -1,4 +1,4 @@
-## Interface: 100207
+## Interface: 110002
 ## Title: LootAppraiser
 ## Notes: An addon which keeps track of looted items and relative AH value.
 ## Author: ProfitzTV
