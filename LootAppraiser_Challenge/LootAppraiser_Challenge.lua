@@ -15,6 +15,7 @@ local LibWindow = LibStub("LibWindow-1.1")
 local LA = LibStub("AceAddon-3.0"):GetAddon("LootAppraiser", true)
 
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+local xDebugMode = false
 
 -- Lua APIs
 local tostring, pairs, ipairs, table, tonumber, select, time, math, floor, date, print, type, string, fastrandom, sort, error, unpack = 
@@ -694,7 +695,7 @@ function Challenge.Callback_OpenChallengeConfig()
 	local self = Challenge
 
 	self:D("Callback_OpenChallengeConfig")
-    Settings.OpenToCategory(self.configFrame)
+    Settings.OpenToCategory("LootAppraiser")
 end
 
 
@@ -852,18 +853,14 @@ end
 -- chat cmd /lac : open challenge ui
 ---------------------------------------------------------------------------------------]]
 function Challenge:chatCmdChallengeUI()
-    print('lac test')
 	self:D("Challenge:chatCmdChallengeUI")
-
 	participant.challenge = participant.challenge or {}
 
 	-- no challenge is running -> no challenge ui
 	if not host.start and not participant.challenge.start then return end
-    print('lac running')
 
 	if self.CHALLENGE_UI then
 		self.CHALLENGE_UI:Show()
-        print('lac show ui?')
 	else
 		self:prepareChallengeUI()
 	end
@@ -4125,49 +4122,47 @@ end
 
 
 function Challenge:D(msg, ...)
-	if self:isDebugOutputEnabled() then
-		--self:Printf(msg, ...)		
-
-		local tab = -1
-		for i = 1,10 do
-			if GetChatWindowInfo(i)=="LADebug" then
-				tab = i
-				break
-			end
-		end
-
-		if(tab ~= -1) then
-			--_G["ChatFrame"..tab]:AddMessage(...)
-			self:Printf(_G["ChatFrame"..tab], msg, ...)
-		end
+	if Challenge:isDebugOutputEnabled() then
+        print(string.format(msg, ...))
 	end
 end
 
 
 function Challenge:isDebugOutputEnabled()
-	if LA.db.profile.enableDebugOutput == nil then
-		LA.db.profile.enableDebugOutput = LA.dbDefaults.profile.enableDebugOutput
-	end
-
-	return LA.db.profile.enableDebugOutput
-
-	--return true
+    return xDebugMode
 end
 
 --[[-------------------------------------------------------------------------------------
 -- FIXED: add challenge invite and request for invite to bnet liste context menu
 ---------------------------------------------------------------------------------------]]
 local menuTargets = {
-    UnitPopupMenuBnFriend
+    UnitPopupMenuFriend,
+    UnitPopupMenuPlayer,
+    UnitPopupMenuEnemyPlayer,
+    UnitPopupMenuParty,
+    UnitPopupMenuRaid,
+    UnitPopupMenuRaidPlayer,
+    UnitPopupMenuSelf,
+    UnitPopupMenuBnFriend,
+    UnitPopupMenuGuild,
+    UnitPopupMenuGuildOffline,
+    UnitPopupMenuChatRoster,
+    UnitPopupMenuTarget,
+    UnitPopupMenuArenaEnemy,
+    UnitPopupMenuFocus,
+    UnitPopupMenuWorldStateScore,
+    UnitPopupMenuCommunitiesGuildMember,
+    UnitPopupMenuCommunitiesWowMember,
 }
 local CustomMenuButtonMixin = CreateFromMixins(UnitPopupButtonBaseMixin)
 function CustomMenuButtonMixin:GetInteractDistance() return nil end;
 function CustomMenuButtonMixin:GetText() return "LAC Invite" end
-function CustomMenuButtonMixin:OnClick() end
+function CustomMenuButtonMixin:OnClick() return end
 
 -- Add Menu to all Contexts
 for i,v in ipairs(menuTargets) do
     local originButton = v.GetMenuButtons
+    if(originButton) then print(i) end
     function v:GetMenuButtons()
        local buttons = originButton(self)
        table.insert(buttons, 1, CustomMenuButtonMixin)
