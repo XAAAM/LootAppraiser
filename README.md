@@ -1,6 +1,6 @@
 # LootAppraiser & LootAppraiser_Challenge
  LootAppraiser fixes for The War Within  
- LootAppraiser_Challenge fixes for The War Within  
+ LootAppraiser_Challenge fixes for The War Within **(Not fixed yet)**  
    
  I am **_NOT_** the original author of these addons.
 
