@@ -15,7 +15,7 @@ local LibWindow = LibStub("LibWindow-1.1")
 local LA = LibStub("AceAddon-3.0"):GetAddon("LootAppraiser", true)
 
 local GetAddOnMetadata = C_AddOns.GetAddOnMetadata
-local xDebugMode = false
+local xDebugMode = true
 
 -- Lua APIs
 local tostring, pairs, ipairs, table, tonumber, select, time, math, floor, date, print, type, string, fastrandom, sort, error, unpack = 
@@ -4105,43 +4105,50 @@ end
 --[[-------------------------------------------------------------------------------------
 -- FIXED: add challenge invite and request for invite to bnet liste context menu
 ---------------------------------------------------------------------------------------]]
--- local menuList = {
---     UnitPopupMenuFriend,
---     UnitPopupMenuPlayer,
---     UnitPopupMenuEnemyPlayer,
---     UnitPopupMenuParty,
---     UnitPopupMenuRaid,
---     UnitPopupMenuRaidPlayer,
---     UnitPopupMenuSelf,
---     UnitPopupMenuBnFriend,
---     UnitPopupMenuGuild,
---     UnitPopupMenuGuildOffline,
---     UnitPopupMenuChatRoster,
---     UnitPopupMenuTarget,
---     UnitPopupMenuArenaEnemy,
---     UnitPopupMenuFocus,
---     UnitPopupMenuWorldStateScore,
---     UnitPopupMenuCommunitiesGuildMember,
---     UnitPopupMenuCommunitiesWowMember,
--- }
+local menuList = {
+    UnitPopupMenuFriend,
+    -- UnitPopupMenuPlayer,
+    -- UnitPopupMenuEnemyPlayer,
+    -- UnitPopupMenuParty,
+    -- UnitPopupMenuRaid,
+    -- UnitPopupMenuRaidPlayer,
+    -- UnitPopupMenuSelf,
+    UnitPopupMenuBnFriend,
+    -- UnitPopupMenuGuild,
+    -- UnitPopupMenuGuildOffline,
+    -- UnitPopupMenuChatRoster,
+    -- UnitPopupMenuTarget,
+    -- UnitPopupMenuArenaEnemy,
+    -- UnitPopupMenuFocus,
+    -- UnitPopupMenuWorldStateScore,
+    -- UnitPopupMenuCommunitiesGuildMember,
+    -- UnitPopupMenuCommunitiesWowMember,
+}
  
- -- using mixin as blizzard recommended
--- local CustomMenuButtonMixin = CreateFromMixins(UnitPopupButtonBaseMixin)
--- function CustomMenuButtonMixin:GetText() return "LAC Invite" end
--- function CustomMenuButtonMixin:OnClick()
---     local invite = { text = "Invite", owner = which, notCheckable = 1, disabled = inviteDisabled, func = Challenge.OnClick_BNetInv, arg1 = dropdownMenu }
---     Challenge.OnClick_BNetInv(invite)
--- end
+local CustomMenuButtonMixin = CreateFromMixins(UnitPopupButtonBaseMixin)
+function CustomMenuButtonMixin:GetText() return "LAC Request Invite" end
+function CustomMenuButtonMixin:OnClick(tdata)
+    -- local reqeustForInvite = { 
+    --     text = "Send request for invite", 
+    --     owner = tdata.which, 
+    --     notCheckable = 1, 
+    --     disabled = request4InviteDisabled, 
+    --     func = Challenge.OnClick_BNetRequest4Inv, 
+    --     arg1 = tdata
+    -- }
+    if(tdata.which == 'BN_FRIEND') then
+        Challenge.OnClick_BNetRequest4Inv(tdata)
+    end
+end
  
- -- extends every item in popup list, added custom button
--- for i,v in ipairs(menuList) do
---     local originButton = v.GetEntries
---     function v:GetEntries()
---        local buttons = originButton(self)
---        table.insert(buttons, 1, CustomMenuButtonMixin)
---        return buttons
---     end
--- end
+for i,v in ipairs(menuList) do
+    local originButton = v.GetEntries
+    function v:GetEntries()
+       local buttons = originButton(self)
+       table.insert(buttons, 1, CustomMenuButtonMixin)
+       return buttons
+    end
+end
 
 --[[-------------------------------------------------------------------------------------
 -- add challenge invite and request for invite to bnet liste context menu
@@ -4194,10 +4201,12 @@ function Challenge.OnClick_BNetRequest4Inv(data, arg1)
 
 	self:D("OnClick_BNetRequest4Inv")
 
-	local dropdownFrame = UIDROPDOWNMENU_INIT_MENU
+	local dropdownFrame = data
 	if dropdownFrame and dropdownFrame.bnetIDAccount then
 		local bnetIDAccount = dropdownFrame.bnetIDAccount
 		local friendIndex = BNGetFriendIndex(bnetIDAccount)
+
+        print(bnetIDAccount, friendIndex)
 
 		self:sendRequest4Invite(friendIndex)
 	end
@@ -4243,7 +4252,7 @@ function Challenge.OnClick_BNetInv(data, a1)
 	Challenge:D("OnClick_BNetInv")
 	--Challenge:D("  a1=%s", tostring(a1))
 
-	local dropdownFrame = UIDROPDOWNMENU_INIT_MENU
+	local dropdownFrame = data
 	LA:print_r(a1)
 	if dropdownFrame and dropdownFrame.bnetIDAccount then
 		local bnetIDAccount = dropdownFrame.bnetIDAccount
