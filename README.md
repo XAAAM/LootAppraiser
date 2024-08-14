@@ -10,3 +10,6 @@ Original AddOn can be found over at [Curseforge](https://www.curseforge.com/wow/
   
 LootAppraiser_Challenge was created by [Testerle](https://www.curseforge.com/members/testerle) on Curseforge  
 Original AddOn can be found over at [Curseforge](https://www.curseforge.com/wow/addons/lootappraiser_challenge)
+
+# Possible Replacement?
+https://www.curseforge.com/wow/addons/goldgoblinloot
