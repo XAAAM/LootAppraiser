@@ -4206,8 +4206,6 @@ function Challenge.OnClick_BNetRequest4Inv(data, arg1)
 		local bnetIDAccount = dropdownFrame.bnetIDAccount
 		local friendIndex = BNGetFriendIndex(bnetIDAccount)
 
-        print(bnetIDAccount, friendIndex)
-
 		self:sendRequest4Invite(friendIndex)
 	end
 end
