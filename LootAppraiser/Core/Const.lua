@@ -1,7 +1,7 @@
 local LA = LibStub("AceAddon-3.0"):NewAddon(select(2, ...), "LootAppraiser", "AceConsole-3.0", "AceEvent-3.0",  "LibSink-2.0") -- "AceHook-3.0",
 
 -- wow api
-local GetAddOnMetadata, UIParent = GetAddOnMetadata, UIParent
+local GetAddOnMetadata, UIParent = C_AddOns.GetAddOnMetadata, UIParent
 
 local CONST = {}
 LA.CONST = CONST

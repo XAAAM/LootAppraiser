@@ -18,10 +18,11 @@ local select, tostring, time, unpack, tonumber, floor, pairs, tinsert, smatch, m
 select, tostring, time, unpack, tonumber, floor, pairs, table.insert, string.match, math, gsub
 
 -- wow APIs
-local GetContainerItemID, GetContainerItemInfo, GetUnitName, GetItemInfo, IsShiftKeyDown, InterfaceOptionsFrame_OpenToCategory, GetBestMapForUnit, PlaySoundFile, GameFontNormal, RegisterAddonMessagePrefix, IsInGroup, UnitGUID, SecondsToTime, StaticPopupDialogs, StaticPopup_Show, SendAddonMessage =
-GetContainerItemID, GetContainerItemInfo, GetUnitName, GetItemInfo, IsShiftKeyDown, InterfaceOptionsFrame_OpenToCategory, C_Map.GetBestMapForUnit, PlaySoundFile, GameFontNormal, C_ChatInfo.RegisterAddonMessagePrefix, IsInGroup, UnitGUID, SecondsToTime, StaticPopupDialogs, StaticPopup_Show, C_ChatInfo.SendAddonMessage
+local GetContainerItemID, GetContainerItemInfo, GetUnitName, GetItemInfo, IsShiftKeyDown, GetBestMapForUnit, PlaySoundFile, GameFontNormal, RegisterAddonMessagePrefix, IsInGroup, UnitGUID, SecondsToTime, StaticPopupDialogs, StaticPopup_Show, SendAddonMessage =
+GetContainerItemID, GetContainerItemInfo, GetUnitName, GetItemInfo, IsShiftKeyDown, C_Map.GetBestMapForUnit, PlaySoundFile, GameFontNormal, C_ChatInfo.RegisterAddonMessagePrefix, IsInGroup, UnitGUID, SecondsToTime, StaticPopupDialogs, StaticPopup_Show, C_ChatInfo.SendAddonMessage
 local INSTANCE_RESET_SUCCESS, OKAY, LOOT_ITEM_SELF, LOOT_ITEM_SELF_MULTIPLE = INSTANCE_RESET_SUCCESS, OKAY, LOOT_ITEM_SELF, LOOT_ITEM_SELF_MULTIPLE
-
+-- Fixes
+local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local private = {
     modules = {}
@@ -128,8 +129,7 @@ if callback then
 callback()
 end
 else
-InterfaceOptionsFrame_OpenToCategory(LA.CONST.METADATA.NAME)
-InterfaceOptionsFrame_OpenToCategory(LA.CONST.METADATA.NAME)
+Settings.OpenToCategory(LA.CONST.METADATA.NAME)
 end
 end
 end,})
@@ -192,8 +192,7 @@ function LA:OnInitialize()
 						callback()
 					end
 				else
-					InterfaceOptionsFrame_OpenToCategory(LA.CONST.METADATA.NAME)
-					InterfaceOptionsFrame_OpenToCategory(LA.CONST.METADATA.NAME)
+					Settings.OpenToCategory(LA.CONST.METADATA.NAME)
 				end
 			end
 		end,
@@ -657,7 +656,7 @@ end
 
 -- command to show config menu for LA (especially if mini-map is disabled)
 function private.chatCmdShowConfig()
-	InterfaceOptionsFrame_OpenToCategory(LA.CONST.METADATA.NAME)
+	Settings.OpenToCategory(LA.CONST.METADATA.NAME)
 end
 
 --[[
