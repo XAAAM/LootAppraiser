@@ -1,3 +1,7 @@
+# Fixed Version Available here:
+  Join this discord: https://discord.gg/studenalbatroz  
+  Channel called: #loot-appraiser
+
 # LootAppraiser & LootAppraiser_Challenge
  LootAppraiser fixes for The War Within  
  LootAppraiser_Challenge fixes for The War Within **(NOT FIXED -- DO NOT USE YET)**  
