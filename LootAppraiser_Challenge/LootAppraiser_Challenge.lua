@@ -874,7 +874,10 @@ end
 
 
 function Challenge.OnBnChatMsgAddon(event, prefix, message, egal, senderToonID)
+    print('OnBnChatMsgAddon ran')
+    Challenge:D('event: %s | prefix: %s | message: %s | egal: %s | senderToonID: %s', event, prefix, message, egal, senderToonID)
 	if prefix ~= p.prefix then return end -- msg is not for loot appraiser -> skip
+    print('OnBnChatMsgAddon ran')
 
 	local self = Challenge
 
